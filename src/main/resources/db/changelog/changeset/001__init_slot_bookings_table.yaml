@@ -1,4 +1,5 @@
 databaseChangeLog:
+  - logicalFilePath: db/changelog/changeset/001__init_slot_bookings_table.yaml
   - changeSet:
       id: 20261020-01-create-slot-bookings-table
       author: polezhaiev

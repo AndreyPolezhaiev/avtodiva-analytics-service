@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20261020-01-create-slot-bookings-table
+      author: polezhaiev
+      changes:
+        - createTable:
+            tableName: slot_bookings
+            columns:
+              - column: { name: slot_id, type: bigint, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: date, type: date }
+              - column: { name: start_time, type: time }
+              - column: { name: end_time, type: time }
+              - column: { name: instructor_name, type: varchar(255) }
+              - column: { name: car_name, type: varchar(255) }
+              - column: { name: student_name, type: varchar(255) }
+              - column: { name: lesson_price, type: "numeric(10,2)" }
+              - column: { name: booked, type: boolean, defaultValueBoolean: false, constraints: { nullable: false } }
+              - column: { name: last_event_id, type: varchar(64) }
+              - column: { name: last_event_timestamp, type: "timestamp with time zone" }
+        - sql:
+            sql: CREATE INDEX idx_slot_bookings_booked_date ON slot_bookings (date) WHERE booked = true
+      rollback:
+        - dropTable:
+            tableName: slot_bookings

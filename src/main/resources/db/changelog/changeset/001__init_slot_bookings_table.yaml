@@ -3,6 +3,12 @@ databaseChangeLog:
   - changeSet:
       id: 20261020-01-create-slot-bookings-table
       author: polezhaiev
+      # table may already exist on databases migrated before logicalFilePath was set
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: slot_bookings
       changes:
         - createTable:
             tableName: slot_bookings
